@@ -29,7 +29,8 @@ static void	initialize(t_main *main)
 	main->img->exits_close = NULL;
 	main->img->exits_open = NULL;
 	main->img->floor = NULL;
-	main->img->player = NULL;
+	main->img->current_player = NULL;
+	main->img->current_enemy = NULL;
 	main->img->wall = NULL;
 }
 

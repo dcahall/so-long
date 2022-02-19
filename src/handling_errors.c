@@ -14,12 +14,12 @@
 
 static void	map_cleaner(t_main	*main)
 {
-	int 	i;
+	int		i;
 	char	**tmp;
 
 	tmp = main->map;
 	i = main->widht;
-	while(i > 0)
+	while (i > 0)
 	{
 		free(tmp[i]);
 		--i;

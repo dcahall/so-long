@@ -26,9 +26,18 @@
 # include <fcntl.h>
 # include <string.h>
 
+#ifndef ITS_BONUS_PROGRAMM
+# define ITS_BONUS_PROGRAMM 0
+#endif
+
 typedef struct s_image
 {
-	void	*player;
+	void	*player[6];
+	void	*enemy[3];
+	void	*reverse_player[6];
+	void	*reverse_enemy[3];
+	void	*current_enemy;
+	void	*current_player;
 	void	*collectible;
 	void	*exits_close;
 	void	*exits_open;
@@ -60,6 +69,7 @@ void	cart_validation(char *map_file, t_main *main);
 void	count_size_of_map(int fd, t_main *main);
 int		check_empty_string(char *str);
 
+void	put_img_to_win(t_main *main, void *imagine, int y, int x);
 void	draw_map(t_main *main, int widht, int lenght);
 int 	press_key(int keycode, t_main *main);
 int		close_window(t_main *main);

@@ -22,10 +22,8 @@ static void	open_door(t_main *main, char **map, int y, int x)
 		{
 			if (map[y][x] == 'E')
 			{
-				mlx_put_image_to_window(main->mlx, main->win, main->img->floor,
-					PIXEL * x, PIXEL * y);
-				mlx_put_image_to_window(main->mlx, main->win,
-					main->img->exits_open, PIXEL * x, PIXEL * y);
+				put_img_to_win(main, main->img->floor, y, x);
+				put_img_to_win(main, main->img->exits_open, y, x);
 			}
 			x++;
 		}
@@ -40,29 +38,41 @@ int	close_window(t_main *main)
 	exit (0);
 }
 
+static void	write_steps(t_main *main)
+{
+	char	*num;
+	size_t	i;
+
+	i = 0;
+	write(1, "Steps: ", 7);
+	num = ft_itoa(++main->steps);
+	while (num[i])
+	{
+		write(1, &num[i], 1);
+		++i;
+	}
+	write(1, "\n", 1);
+}
+
 static void	move_player(t_main *main, int x, int y)
 {
 	if (main->map[main->y + y][main->x + x] == '1'
 		|| (main->map[main->y + y][main->x + x] == 'E' && main->collectible))
 		return ;
-	printf("steps №: %d\n", ++main->steps);
+	write_steps(main);
 	if (main->map[main->y + y][main->x + x] == 'C')
 	{
 		main->collectible -= 1;
 		main->map[main->y + y][main->x + x] = '0';
 		open_door(main, main->map, 0, 0);
-		mlx_put_image_to_window(main->mlx, main->win, main->img->floor,
-			PIXEL * (main->x + x), PIXEL * (main->y + y));
 	}
 	else if (!main->collectible && main->map[main->y + y][main->x + x] == 'E')
 	{
-		printf("YOU WON\n");
+		write(1, "YOU WON\n", 8);
 		close_window(main);
 	}
-	mlx_put_image_to_window(main->mlx, main->win, main->img->floor,
-		PIXEL * main->x, PIXEL * main->y);
-	mlx_put_image_to_window(main->mlx, main->win, main->img->player,
-		PIXEL * (main->x + x), PIXEL * (main->y + y));
+	put_img_to_win(main, main->img->floor, main->y, main->x);
+	put_img_to_win(main, main->img->current_player, main->y + y, main->x + x);
 	main->x += x;
 	main->y += y;
 }

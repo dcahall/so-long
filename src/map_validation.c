@@ -20,8 +20,6 @@ static void	check_symbol(char symbol, t_main *main)
 		main->players += 1;
 	else if (symbol == 'E')
 		main->exits += 1;
-	else if (symbol != '1' && symbol != '0')
-		error_message("The wrong symbol on the map", main);
 }
 
 static void	parse_map(char **map, t_main *main)
