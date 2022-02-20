@@ -19,6 +19,10 @@
 # define D		2
 # define ESC	53
 # define CANCEL 17
+# define RIGHT	10
+# define LEFT	11
+# define PRESS_KEY	2
+# define RELEASE_KEY	3
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -32,10 +36,10 @@
 
 typedef struct s_image
 {
-	void	*player[6];
-	void	*enemy[3];
-	void	*reverse_player[6];
-	void	*reverse_enemy[3];
+	void	*player[2];
+	void	*enemy[6];
+	void	*reverse_player[2];
+	void	*reverse_enemy[6];
 	void	*current_enemy;
 	void	*current_player;
 	void	*collectible;
@@ -58,10 +62,16 @@ typedef struct s_main
 	int		steps;
 	int		x;
 	int		y;
+	int		player_direction;
 	t_image	*img;
 }	t_main;
 
 void	error_message(char *str, t_main *main);
+
+void	put_img_to_win(t_main *main, void *imagine, int y, int x);
+void	draw_map(t_main *main, int widht, int lenght);
+int 	press_key(int keycode, t_main *main);
+int		close_window(t_main *main);
 
 int		gnl(char **str, int fd, t_main *main);
 void	memory_allocate(t_main	*main, int fd);
@@ -69,9 +79,7 @@ void	cart_validation(char *map_file, t_main *main);
 void	count_size_of_map(int fd, t_main *main);
 int		check_empty_string(char *str);
 
-void	put_img_to_win(t_main *main, void *imagine, int y, int x);
-void	draw_map(t_main *main, int widht, int lenght);
-int 	press_key(int keycode, t_main *main);
-int		close_window(t_main *main);
+void	player_animation(t_main *main, int	direction);
+int		key_release(int keycode, t_main *main);
 
 #endif

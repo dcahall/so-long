@@ -52,20 +52,18 @@ static void	reverse_img(t_main *main, int widht, int lenght)
 			"./img/reverse_player1.xpm", &widht, &lenght);
 	main->img->reverse_player[1] = mlx_xpm_file_to_image(main->mlx,
 			"./img/reverse_player2.xpm", &widht, &lenght);
-	main->img->reverse_player[2] = mlx_xpm_file_to_image(main->mlx,
-			"./img/reverse_player3.xpm", &widht, &lenght);
-	main->img->reverse_player[3] = mlx_xpm_file_to_image(main->mlx,
-			"./img/reverse_player4.xpm", &widht, &lenght);
-	main->img->reverse_player[4] = mlx_xpm_file_to_image(main->mlx,
-			"./img/reverse_player5.xpm", &widht, &lenght);
-	main->img->reverse_player[5] = mlx_xpm_file_to_image(main->mlx,
-			"./img/reverse_player6.xpm", &widht, &lenght);
 	main->img->reverse_enemy[0] = mlx_xpm_file_to_image(main->mlx,
 			"./img/reverse_enemy1.xpm", &widht, &lenght);
 	main->img->reverse_enemy[1] = mlx_xpm_file_to_image(main->mlx,
 			"./img/reverse_enemy2.xpm", &widht, &lenght);
 	main->img->reverse_enemy[2] = mlx_xpm_file_to_image(main->mlx,
-			"./img/reverse_ememy3.xpm", &widht, &lenght);
+			"./img/reverse_enemy3.xpm", &widht, &lenght);
+	main->img->reverse_enemy[3] = mlx_xpm_file_to_image(main->mlx,
+			"./img/reverse_enemy4.xpm", &widht, &lenght);
+	main->img->reverse_enemy[4] = mlx_xpm_file_to_image(main->mlx,
+			"./img/reverse_enemy5.xpm", &widht, &lenght);
+	main->img->reverse_enemy[5] = mlx_xpm_file_to_image(main->mlx,
+			"./img/reverse_enemy6.xpm", &widht, &lenght);
 }
 
 static void	open_players_enemies_img(t_main *main, int widht, int lenght)
@@ -74,20 +72,18 @@ static void	open_players_enemies_img(t_main *main, int widht, int lenght)
 			"./img/player1.xpm", &widht, &lenght);
 	main->img->player[1] = mlx_xpm_file_to_image(main->mlx,
 			"./img/player2.xpm", &widht, &lenght);
-	main->img->player[2] = mlx_xpm_file_to_image(main->mlx,
-			"./img/player3.xpm", &widht, &lenght);
-	main->img->player[3] = mlx_xpm_file_to_image(main->mlx,
-			"./img/player4.xpm", &widht, &lenght);
-	main->img->player[4] = mlx_xpm_file_to_image(main->mlx,
-			"./img/player5.xpm", &widht, &lenght);
-	main->img->player[5] = mlx_xpm_file_to_image(main->mlx,
-			"./img/player6.xpm", &widht, &lenght);
 	main->img->enemy[0] = mlx_xpm_file_to_image(main->mlx,
 			"./img/enemy1.xpm", &widht, &lenght);
 	main->img->enemy[1] = mlx_xpm_file_to_image(main->mlx,
 			"./img/enemy2.xpm", &widht, &lenght);
 	main->img->enemy[2] = mlx_xpm_file_to_image(main->mlx,
-			"./img/ememy3.xpm", &widht, &lenght);
+			"./img/enemy3.xpm", &widht, &lenght);
+	main->img->enemy[3] = mlx_xpm_file_to_image(main->mlx,
+			"./img/enemy4.xpm", &widht, &lenght);
+	main->img->enemy[4] = mlx_xpm_file_to_image(main->mlx,
+			"./img/enemy5.xpm", &widht, &lenght);
+	main->img->enemy[5] = mlx_xpm_file_to_image(main->mlx,
+			"./img/enemy6.xpm", &widht, &lenght);
 	reverse_img(main, widht, lenght);
 }
 

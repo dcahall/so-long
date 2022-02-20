@@ -16,7 +16,7 @@ static void	map_cleaner(t_main	*main)
 {
 	int		i;
 	char	**tmp;
-
+   
 	tmp = main->map;
 	i = main->widht;
 	while (i > 0)
