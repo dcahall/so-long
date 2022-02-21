@@ -40,7 +40,7 @@ static void	img_to_window(t_main *main, int y, int x)
 				put_img_to_win(main, main->img->exits_close, y, x);
 			else if (ITS_BONUS_PROGRAMM)
 				if (main->map[y][x] == 'A')
-					put_img_to_win(main, main->img->current_enemy, y, x);
+					put_img_to_win(main, main->img->enemy[0], y, x);
 		}
 		x = -1;
 	}
@@ -102,9 +102,6 @@ void	draw_map(t_main *main, int widht, int lenght)
 	main->img->current_player = mlx_xpm_file_to_image(main->mlx,
 			"./img/player1.xpm", &widht, &lenght);
 	if (ITS_BONUS_PROGRAMM)
-	{
 		open_players_enemies_img(main, widht, lenght);
-		main->img->current_enemy = main->img->enemy[0];
-	}
 	img_to_window(main, -1, -1);
 }

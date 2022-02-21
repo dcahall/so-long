@@ -25,13 +25,14 @@ static void	initialize(t_main *main)
 	main->map = NULL;
 	main->x = 0;
 	main->y = 0;
+	main->enemy_x = 0;
+	main->enemy_y = 0;
 	main->player_direction = 0;
 	main->img->collectible = NULL;
 	main->img->exits_close = NULL;
 	main->img->exits_open = NULL;
 	main->img->floor = NULL;
 	main->img->current_player = NULL;
-	main->img->current_enemy = NULL;
 	main->img->wall = NULL;
 }
 
@@ -67,8 +68,11 @@ int	main(int argc, char **argv)
 	if (!main->win)
 		error_message("Error when calling the function: mlx_new_window", main);
 	draw_map(main, 0, 0);
-	mlx_key_hook(main->win, key_release, main);
-	// mlx_hook(main->win, RELEASE_KEY, 1L << 1, key_release, main);
+	if (ITS_BONUS_PROGRAMM)
+	{
+		mlx_loop_hook(main->mlx, enemy_handling, main);
+		mlx_hook(main->win, RELEASE_KEY, 1L << 1, key_release, main);
+	}
 	mlx_hook(main->win, PRESS_KEY, 1L << 0, press_key, main);
 	mlx_hook(main->win, CANCEL, 1L << 0, close_window, main);
 	mlx_loop(main->mlx);

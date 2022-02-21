@@ -14,7 +14,7 @@ SRCS_LST	=	map_validation.c			handling_errors_and_print_fun.c	find_size_of_map.c
 				creating_and_filling_map.c	so_long.c						draw_map.c\
 				press_key.c					
 
-B_SRC		=	player_animation.c
+B_SRC		=	player_animation.c			enemy_animation.c
 
 SRCS		=	$(addprefix $(SRCS_PATH), $(SRCS_LST))
 

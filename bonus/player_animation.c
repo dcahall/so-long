@@ -15,8 +15,6 @@
 int	key_release(int keycode, t_main *main)
 {
 	if (keycode == A || keycode == D || keycode == S || keycode == W)
-		return (0);
-	else
 	{
 		put_img_to_win(main, main->img->floor, main->y, main->x);
 		if (main->player_direction == RIGHT)
@@ -33,7 +31,7 @@ int	key_release(int keycode, t_main *main)
 
 void	player_animation(t_main *main, int	direction)
 {
-	if (direction == RIGHT)
+	if (direction == RIGHT || direction == 0)
 	{
 		if (main->img->current_player == main->img->player[0])
 			main->img->current_player = main->img->player[1];

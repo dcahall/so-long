@@ -55,7 +55,7 @@ static void	write_steps(t_main *main)
 	free (num);
 }
 
-static void	move_player(t_main *main, int x, int y)
+static void	move_player(t_main *main, int y, int x)
 {
 	if (main->map[main->y + y][main->x + x] == '1'
 		|| (main->map[main->y + y][main->x + x] == 'E' && main->collectible))
@@ -89,19 +89,23 @@ int	press_key(int keycode, t_main *main)
 {
 	if (keycode == ESC)
 		close_window(main);
-	else if (keycode == W)
-		move_player(main, 0, -1);
-	else if (keycode == S)
-		move_player(main, 0, 1);
+	else if (keycode == W || keycode == S)
+	{
+		player_animation(main, main->player_direction);
+		if (keycode == W)
+			move_player(main, -1, 0);
+		else
+			move_player(main, 1, 0);
+	}
 	else if (keycode == A)
 	{
 		player_animation(main, LEFT);
-		move_player(main, -1, 0);
+		move_player(main, 0, -1);
 	}
 	else if (keycode == D)
 	{
 		player_animation(main, RIGHT);
-		move_player(main, 1, 0);
+		move_player(main, 0, 1);
 	}
 	return (0);
 }
@@ -113,13 +117,13 @@ int	press_key(int keycode, t_main *main)
 	if (keycode == ESC)
 		close_window(main);
 	else if (keycode == W)
-		move_player(main, 0, -1);
-	else if (keycode == S)
-		move_player(main, 0, 1);
-	else if (keycode == A)
 		move_player(main, -1, 0);
-	else if (keycode == D)
+	else if (keycode == S)
 		move_player(main, 1, 0);
+	else if (keycode == A)
+		move_player(main, 0, -1);
+	else if (keycode == D)
+		move_player(main, 0, 1);
 	return (0);
 }
 

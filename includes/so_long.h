@@ -12,17 +12,22 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-# define PIXEL	64
-# define W		13
-# define A		0
-# define S		1
-# define D		2
-# define ESC	53
-# define CANCEL 17
-# define RIGHT	10
-# define LEFT	11
-# define PRESS_KEY	2
+# define PIXEL			64
+# define W				13
+# define A				0
+# define S				1
+# define D				2
+# define ESC			53
+# define CANCEL			17
+# define RIGHT			10
+# define LEFT			11
+# define PRESS_KEY		2
 # define RELEASE_KEY	3
+# define UP_ENEMY		2
+# define DOWN_ENEMY		0
+# define LEFT_ENEMY		1
+# define RIGHT_ENEMY	3
+# define ENEMY_IMG_NUM	6
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -40,7 +45,6 @@ typedef struct s_image
 	void	*enemy[6];
 	void	*reverse_player[2];
 	void	*reverse_enemy[6];
-	void	*current_enemy;
 	void	*current_player;
 	void	*collectible;
 	void	*exits_close;
@@ -62,6 +66,8 @@ typedef struct s_main
 	int		steps;
 	int		x;
 	int		y;
+	int		enemy_x;
+	int		enemy_y;
 	int		player_direction;
 	t_image	*img;
 }	t_main;
@@ -81,5 +87,6 @@ int		check_empty_string(char *str);
 
 void	player_animation(t_main *main, int	direction);
 int		key_release(int keycode, t_main *main);
+int		enemy_handling(t_main *main);
 
 #endif
