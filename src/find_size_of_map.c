@@ -60,7 +60,7 @@ static int	count_len_str(char *str, t_main *main)
 			i++;
 	}
 	if (str[i] != '\0' && str[i] != '\n')
-		error_message("Wrong symbol on the map", main);
+		error_message("Error\nWrong symbol on the map", main);
 	return (i);
 }
 
@@ -77,7 +77,7 @@ static int	write_len_str_to_struct(t_main *main, char *str)
 	if (main->lenght == 0)
 		main->lenght = lenght;
 	else if (lenght != main->lenght)
-		error_message("An empty line or a non-rectangular map", main);
+		error_message("Error\nAn empty line or a non-rectangular map", main);
 	main->widht += 1;
 	return (wall);
 }
@@ -96,10 +96,12 @@ void	count_size_of_map(int fd, t_main *main)
 		free(str);
 		rd = gnl(&str, fd, main);
 	}
+	if (ft_strlen(str) > 0)
+		error_message("Error\nSymblols at the last string or forgot \\n", main);
 	if (main->lenght == 0)
-		error_message("Upload the map", main);
+		error_message("Error\nUpload the map", main);
 	if (wall < 2)
-		error_message("Wrong number of walls or forgot \\n at end", main);
+		error_message("Error\nWrong number of walls or forgot \\n at end", main);
 	free(str);
 	close (fd);
 }

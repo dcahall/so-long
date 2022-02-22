@@ -38,23 +38,6 @@ int	close_window(t_main *main)
 	exit (0);
 }
 
-static void	write_steps(t_main *main)
-{
-	char	*num;
-	size_t	i;
-
-	i = 0;
-	write(1, "Steps: ", 7);
-	num = ft_itoa(++main->steps);
-	while (num[i])
-	{
-		write(1, &num[i], 1);
-		++i;
-	}
-	write(1, "\n", 1);
-	free (num);
-}
-
 static void	move_player(t_main *main, int y, int x)
 {
 	if (main->map[main->y + y][main->x + x] == '1'

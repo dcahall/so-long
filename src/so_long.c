@@ -27,6 +27,8 @@ static void	initialize(t_main *main)
 	main->y = 0;
 	main->enemy_x = 0;
 	main->enemy_y = 0;
+	main->animation_enemy_delay = 0;
+	main->move_enemy_delay = 0;
 	main->player_direction = 0;
 	main->img->collectible = NULL;
 	main->img->exits_close = NULL;
@@ -34,6 +36,8 @@ static void	initialize(t_main *main)
 	main->img->floor = NULL;
 	main->img->current_player = NULL;
 	main->img->wall = NULL;
+	main->img->current_enemy = NULL;
+	main->delimiter_rand = 0;
 }
 
 static t_main	*create_struct(void)
@@ -43,7 +47,7 @@ static t_main	*create_struct(void)
 
 	main = malloc(sizeof(t_main));
 	if (!main)
-		error_message("Error malloc", main);
+		error_message("Error nmalloc", main);
 	img = malloc(sizeof(t_image));
 	if (!img)
 		error_message("Error malloc", main);
@@ -57,7 +61,7 @@ int	main(int argc, char **argv)
 	t_main	*main;
 
 	if (argc != 2)
-		exit (1);
+		error_message("Error\nWrong param", NULL);
 	main = create_struct();
 	cart_validation(argv[1], main);
 	main->mlx = mlx_init();
@@ -67,7 +71,8 @@ int	main(int argc, char **argv)
 			PIXEL * main->widht, "so_long");
 	if (!main->win)
 		error_message("Error when calling the function: mlx_new_window", main);
-	draw_map(main, 0, 0);
+	open_img(main, 0, 0);
+	draw_map(main);
 	if (ITS_BONUS_PROGRAMM)
 	{
 		mlx_loop_hook(main->mlx, enemy_handling, main);

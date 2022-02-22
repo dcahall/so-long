@@ -32,7 +32,7 @@ static void	parse_map(char **map, t_main *main)
 	while (map[j])
 	{
 		if (map[j][i] != '1' || map[j][main->lenght - 1] != '1')
-			error_message("Holes in the wall", main);
+			error_message("Error\nHoles in the wall", main);
 		while (map[j][i])
 		{
 			check_symbol(map[j][i], main);
@@ -62,14 +62,14 @@ void	cart_validation(char *map_file, t_main *main)
 	path_to_map = ft_strjoin("./maps/", map_file);
 	count_size_of_map(open_file(path_to_map, main), main);
 	if (main->widht < 3)
-		error_message("The map cannot have less than 3 lines", main);
+		error_message("Error\nThe map cannot have less than 3 lines", main);
 	memory_allocate(main, open_file(path_to_map, main));
 	parse_map(main->map, main);
 	if (main->players <= 0 || main->players > 1)
-		error_message("Incorrect number of starting positions", main);
+		error_message("Error\nIncorrect number of starting positions", main);
 	else if (main->exits <= 0)
-		error_message("There is no exit for the player on the map", main);
+		error_message("Error\nThere is no exit for the player on the map", main);
 	else if (main->collectible <= 0)
-		error_message("There is no collectible item on the map", main);
+		error_message("Error\nThere is no collectible item on the map", main);
 	free (path_to_map);
 }

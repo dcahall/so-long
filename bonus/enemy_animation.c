@@ -12,44 +12,6 @@
 
 #include "so_long.h"
 
-static int	random_num(void)
-{
-	char	*i;
-	int		random;
-
-	i = malloc(1);
-	random = ((unsigned int)&(*i) / 123) % 4;
-	free(i);
-	return (random);
-}
-
-// static void	animation_direction(t_main *main, int direction)
-// {
-// 	int		img_number;
-// 	int		i;
-// 	int		z;
-// 	void	**img;
-
-// 	z = 1;
-// 	i = 0;
-// 	img_number = 0;
-// 	if (direction == UP_ENEMY || direction == DOWN_ENEMY)
-// 		return ;
-// 	else if (direction == LEFT_ENEMY)
-// 		img = main->img->enemy;
-// 	else
-// 		img = main->img->reverse_enemy;
-// 	while (img_number < ENEMY_IMG_NUM)
-// 	{
-// 		put_img_to_win(main, main->img->floor, main->enemy_y, main->enemy_x);
-// 		put_img_to_win(main, img[img_number], main->enemy_y, main->enemy_x);
-// 		while (i <= z * 10)
-// 			++i;
-// 		++z;
-// 		++img_number;
-// 	}
-// }
-
 static void	move_enemy(t_main *main, int x, int y)
 {
 	if (main->map[main->enemy_y + y][main->enemy_x + x] == '1'
@@ -63,74 +25,97 @@ static void	move_enemy(t_main *main, int x, int y)
 		close_window(main);
 	}
 	put_img_to_win(main, main->img->floor, main->enemy_y, main->enemy_x);
-	put_img_to_win(main, main->img->enemy[0], main->enemy_y + y, main->enemy_x + x);
+	put_img_to_win(main, main->img->enemy[0], main->enemy_y + y,
+		main->enemy_x + x);
 	main->map[main->enemy_y + y][main->enemy_x + x] = 'A';
 	main->map[main->enemy_y][main->enemy_x] = '0';
 	main->enemy_x = 0;
 	main->enemy_y = 0;
 }
 
-static void	convert_direction(t_main *main, int direction)
+static void	convert_direction(t_main *main, int y, int x)
 {
+	int	direction;
+
+	if (main->move_enemy_delay != 20)
+	{
+		main->move_enemy_delay++;
+		return ;
+	}
+	else
+		main->move_enemy_delay = 0;
+	main->enemy_x = x;
+	main->enemy_y = y;
+	direction = random_num(main);
 	if (direction == UP_ENEMY)
 		move_enemy(main, -1, 0);
 	else if (direction == DOWN_ENEMY)
 		move_enemy(main, 1, 0);
 	else if (direction == LEFT_ENEMY)
-	{
-		// animation_direction(main, direction);
 		move_enemy(main, 0, -1);
-	}
 	else if (direction == RIGHT_ENEMY)
-	{
-		// animation_direction(main, direction);
 		move_enemy(main, 0, 1);
+}
+
+static void	change_enemy_img(t_main *main)
+{
+	int	i;
+
+	i = 0;
+	if (main->animation_enemy_delay != 1)
+	{
+		main->animation_enemy_delay++;
+		return ;
+	}
+	else
+		main->animation_enemy_delay = 0;
+	while (i < ENEMY_IMG_NUM)
+	{
+		if (main->img->current_enemy == main->img->enemy[i])
+		{
+			if (i == ENEMY_IMG_NUM - 1)
+				main->img->current_enemy = main->img->enemy[0];
+			else
+				main->img->current_enemy = main->img->enemy[i + 1];
+			return ;
+		}
+		i++;
 	}
 }
 
-int	enemy_handling(t_main *main)
+static void	draw_enemy_img_or_move(t_main *main, int action)
 {
-	static int	delay;
-	int			y;
-	int			x;
-	int			direction;
+	int	y;
+	int	x;
 
-	y = 0;
 	x = 0;
-	mlx_do_sync(main->mlx);
-	if (++delay == 60)
-		delay = 0;
-	else
-		return (0);
+	y = 0;
 	while (main->map[y])
 	{
 		while (main->map[y][x])
 		{
 			if (main->map[y][x] == 'A')
 			{
-				main->enemy_x = x;
-				main->enemy_y = y;
-				direction = random_num();
-				convert_direction(main, direction);
-				if (main->map[y][x + 1] == 'A' && direction == RIGHT)
+				if (action == DRAW_ENEMY)
 				{
-					printf("xyi\n");
-					x++;
+					put_img_to_win(main, main->img->floor, y, x);
+					put_img_to_win(main, main->img->current_enemy, y, x);
 				}
+				else if (action == MOVE)
+					convert_direction(main, y, x);
 			}
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	return (0);
 }
 
 int	enemy_handling(t_main *main)
 {
-	mlx_do_sync(game->mlx);
-	animate_enemy(game);
-	move_enemy(game, game->map, -1, -1);
-	render_enemy(game, -1, -1);
+	mlx_do_sync(main->mlx);
+	change_enemy_img(main);
+	draw_enemy_img_or_move(main, DRAW_ENEMY);
+	draw_enemy_img_or_move(main, MOVE);
 	return (0);
 }

@@ -30,7 +30,7 @@ int	gnl(char **str, int fd, t_main *main)
 		if (rd == -1)
 		{
 			free(buf);
-			error_message("Map reading error", main);
+			error_message("Error\nMap reading", main);
 		}
 		rd = read(fd, &symbol, 1);
 	}
@@ -71,13 +71,13 @@ void	memory_allocate(t_main	*main, int fd)
 	i = 0;
 	main->map = malloc((main->widht + 1) * sizeof(char *));
 	if (!main->map)
-		error_message("Error malloc in memory allocate (1)", main);
+		error_message("Error malloc", main);
 	tmp = main->map;
 	while (i < main->widht)
 	{
 		tmp[i] = malloc(sizeof(char) * (main->lenght + 1));
 		if (!tmp[i])
-			error_message("Error malloc in memory allocate (2)", main);
+			error_message("Error malloc", main);
 		fill_current_string(tmp[i], fd, main);
 		i++;
 	}
