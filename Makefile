@@ -34,7 +34,7 @@ LIBFT_FLAGS		=	-L$(LIBFT_PATH) -lft
 
 MLX_FLAGS		=	-I./minilibx -L./minilibx -lmlx -framework OpenGL -framework AppKit
 
-B_PREPROCESSING	=	-D ITS_BONUS_PROGRAMM=1
+PREPROCESSING	=	-D ITS_BONUS_PROGRAMM=1
 
 CFLAGS			=	-Wall -Wextra -Werror $(INCLUDES)
 
