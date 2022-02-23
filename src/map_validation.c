@@ -58,7 +58,7 @@ void	cart_validation(char *map_file, t_main *main)
 	char	*path_to_map;
 
 	if (!ft_strnstr(map_file, ".ber", ft_strlen(map_file)))
-		exit (2);
+		error_message("Error\nWrong map name", main);
 	path_to_map = ft_strjoin("./maps/", map_file);
 	count_size_of_map(open_file(path_to_map, main), main);
 	if (main->widht < 3)

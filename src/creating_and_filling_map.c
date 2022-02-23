@@ -48,11 +48,6 @@ static void	fill_current_string(char *str, int fd, t_main *main)
 	k = 0;
 	i = 0;
 	gnl(&tmp, fd, main);
-	while (!check_empty_string(tmp))
-	{
-		free(tmp);
-		gnl(&tmp, fd, main);
-	}
 	while (i < main->lenght)
 	{
 		str[k] = tmp[i];

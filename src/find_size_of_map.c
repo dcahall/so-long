@@ -12,20 +12,6 @@
 
 #include "so_long.h"
 
-int	check_empty_string(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		if (str[i] != ' ')
-			return (1);
-		++i;
-	}
-	return (0);
-}
-
 static int	check_wall(char *str)
 {
 	int	i;
@@ -92,6 +78,8 @@ void	count_size_of_map(int fd, t_main *main)
 	rd = gnl(&str, fd, main);
 	while (rd)
 	{
+		if (*str != '1')
+			error_message("Error map", main);
 		wall += write_len_str_to_struct(main, str);
 		free(str);
 		rd = gnl(&str, fd, main);
